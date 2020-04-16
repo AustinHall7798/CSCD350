@@ -1,3 +1,9 @@
+// InputCreater
+// Austin Hall
+// This File creates a new text file used as the input
+// for testing the MineSweeper class. There are edge case and non-edge
+// case examples appended to this file
+
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
@@ -6,84 +12,93 @@ import java.io.IOException;
 public class InputCreater {
 	public static void main(String[] args) throws IOException {
 
-		ArrayList<String> text = new ArrayList<String>();
+		// ArrayList to hold lines to be added to final InputFile
+		ArrayList<String> textTobeAdded = new ArrayList<String>();
 		
+		// Attempts to create a new text File called InputFile. 
+		// If one already exists, It doesn't create a new one
+		// and will catch IO Exceptions
 		try {
 		      File myObj = new File("InputFile.txt");
-		      if (myObj.createNewFile()) {
-		        System.out.println("File created: " + myObj.getName());
-		      } else {
-		        System.out.println("File already exists.");
-		        System.out.println(myObj.getAbsolutePath());
-		      }
+		      myObj.createNewFile();
+		      
 		    } catch (IOException e) {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
 		    }
 		
-		
+		// FileWriter to add text to previously created file
 		FileWriter writer = new FileWriter("InputFile.txt");
 
-		text.add("4 4\n");
-		text.add("*...\n");
-		text.add("....\n");
-		text.add(".*..\n");
-		text.add("....\n");
-		text.add("3 5\n");
-		text.add("**...\n");
-		text.add(".....\n");
-		text.add(".*...\n");
+		// Add example input to the InputFile, newline character
+		// so MineSweeper will know when a line ends
+		textTobeAdded.add("4 4\n");
+		textTobeAdded.add("*...\n");
+		textTobeAdded.add("....\n");
+		textTobeAdded.add(".*..\n");
+		textTobeAdded.add("....\n");
+		textTobeAdded.add("3 5\n");
+		textTobeAdded.add("**...\n");
+		textTobeAdded.add(".....\n");
+		textTobeAdded.add(".*...\n");
 		
-		text.add("1 1\n");
-		text.add(".\n");
-		text.add("1 1\n");
-		text.add("*\n");
+		// Adds edge case minimum size of mine field, with both bomb
+		// and no bomb cases, to InputFile
+		textTobeAdded.add("1 1\n");
+		textTobeAdded.add(".\n");
+		textTobeAdded.add("1 1\n");
+		textTobeAdded.add("*\n");
 		
+		// Adds the edge case maximum size of mine field, with no bombs
 		int i = 0, k = 0;
-		text.add("100 100\n");
+		textTobeAdded.add("100 100\n");
 		while(i < 100) {
 			while(k < 100) {
-				text.add(".");
+				textTobeAdded.add(".");
 				k++;
-			}
-			k = 0;
-			text.add("\n");
+			} // End inner while loop
+			k = 0; // K is reset to 0 to continue next run of outer loop
+			textTobeAdded.add("\n"); // adds newline character
 			i++;
-		}
+		} // End outer while loop
 		
+		// Adds the edge case maximum size of mine field, with all bombs
 		i = 0;
 		k = 0;
-		text.add("100 100\n");
+		textTobeAdded.add("100 100\n");
 		while(i < 100) {
 			while(k < 100) {
-				text.add("*");
+				textTobeAdded.add("*");
 				k++;
-			}
-			k = 0;
-			text.add("\n");
+			} // End inner while loop
+			k = 0; // K is reset to 0 to continue next run of outer loop
+			textTobeAdded.add("\n"); // adds newline character
 			i++;
-		}
+		} // End outer while loop
 		
+		// Adds the edge case maximum size of mine field, with no bombs
 		i = 0;
 		k = 0;
-		text.add("100 100\n");
+		textTobeAdded.add("100 100\n");
 		while(i < 100) {
 			while(k < 100) {
 				int ran = (Math.random() <= 0.5) ? 1 : 2;
 				if(ran == 1) {
-					text.add(".");
+					textTobeAdded.add(".");
 				} else {
-					text.add("*");
+					textTobeAdded.add("*");
 				}
 				k++;
-			}
-			k = 0;
+			} // End inner while loop
+			k = 0; // K is reset to 0 to continue next run of outer loop
+			textTobeAdded.add("\n"); // adds newline character
 			i++;
-			text.add("\n");
-		}
-		text.add("0 0");
+		} // End outer while loop
+		textTobeAdded.add("0 0");
 		
-		for (String line : text) {
+		// for loop to add each string in the text ArrayList to the
+		// InputFile
+		for (String line : textTobeAdded) {
 			writer.write(line);
 		}
 		writer.close();
