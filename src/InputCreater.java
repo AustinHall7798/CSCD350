@@ -76,7 +76,8 @@ public class InputCreater {
 			i++;
 		} // End outer while loop
 		
-		// Adds the edge case maximum size of mine field, with no bombs
+		// Adds the edge case maximum size of mine field, with 
+		// random bombs or safe spaces
 		i = 0;
 		k = 0;
 		textTobeAdded.add("100 100\n");
